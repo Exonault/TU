@@ -5,10 +5,10 @@ namespace Bulls_And_Cows
 {
     public class Player
     {
-        private Random _random;
-        private StringBuilder _scoreboard;
+        private readonly Random _random;
+        private readonly StringBuilder _scoreboard;
         private bool _firstRound;
-        private string _computerNumber;
+        private readonly string _computerNumber;
 
         public Player(string computerNumber)
         {
@@ -37,7 +37,7 @@ namespace Bulls_And_Cows
 
             for (int i = 0; i < _computerNumber.Length; i++)
             {
-                if (_computerNumber.Contains(playerGuess[i] + ""))
+                if (_computerNumber.Contains(playerGuess[i]))
                 {
                     cowsCount++;
                     if (_computerNumber[i] == playerGuess[i])
@@ -50,7 +50,7 @@ namespace Bulls_And_Cows
 
             Console.WriteLine($"Bulls: {bullsCount} Cows: {cowsCount} \n");
             _scoreboard.Append($"                  {playerGuess}   {bullsCount}     {cowsCount} \n");
-            
+
             if (bullsCount == 4)
             {
                 Console.WriteLine("Player wins");

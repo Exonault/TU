@@ -7,8 +7,8 @@ namespace Bulls_And_Cows
     {
         public string Number { get; }
 
-        private List<String> _possibleNumbers;
-        private Random _random;
+        private readonly List<String> _possibleNumbers;
+        private readonly Random _random;
 
 
         public Computer()
@@ -53,30 +53,6 @@ namespace Bulls_And_Cows
             return false;
         }
 
-        private string GenerateNumber()
-        {
-            int[] digits = new int[4];
-            string number = "";
-
-            number += digits[0] = _random.Next(1,9) ;
-            number += digits[1] = GenerateUniqueDigits(digits[0], -1, -1);
-            number += digits[2] = GenerateUniqueDigits(digits[0], digits[1], -1);
-            number += digits[3] = GenerateUniqueDigits(digits[0], digits[1], digits[2]);
-            Console.WriteLine(number); // delete this line before u submit
-            return number;
-        }
-
-        private int GenerateUniqueDigits(int firstDigit, int secondDigit, int thirdDigit)
-        {
-            int number = -1;
-
-            do
-            {
-                number = _random.Next(9);
-            } while (number == firstDigit || number == secondDigit || number == thirdDigit);
-
-            return number;
-        }
 
         private void NumbersPruning(string initialNumber, int bullsCount, int cowsCount)
         {
@@ -109,6 +85,31 @@ namespace Bulls_And_Cows
             }
         }
 
+        private string GenerateNumber()
+        {
+            int[] digits = new int[4];
+            string number = "";
+
+            number += digits[0] = _random.Next(1, 9);
+            number += digits[1] = GenerateUniqueDigits(digits[0], -1, -1);
+            number += digits[2] = GenerateUniqueDigits(digits[0], digits[1], -1);
+            number += digits[3] = GenerateUniqueDigits(digits[0], digits[1], digits[2]);
+            return number;
+        }
+
+        private int GenerateUniqueDigits(int firstDigit, int secondDigit, int thirdDigit)
+        {
+            int number = -1;
+
+            do
+            {
+                number = _random.Next(9);
+            } while (number == firstDigit || number == secondDigit || number == thirdDigit);
+
+            return number;
+        }
+
+
         private List<string> AllPossibleCombinations()
         {
             List<string> result = new List<string>();
@@ -121,11 +122,13 @@ namespace Bulls_And_Cows
                     {
                         for (int thirdDigit = 0; thirdDigit <= 9; thirdDigit++)
                         {
-                            if (thirdDigit != firstDigit && thirdDigit != secondDigit)
+                            if (thirdDigit != firstDigit && 
+                                thirdDigit != secondDigit)
                             {
                                 for (int fourthDigit = 0; fourthDigit <= 9; fourthDigit++)
                                 {
-                                    if (fourthDigit != firstDigit && fourthDigit != secondDigit &&
+                                    if (fourthDigit != firstDigit && 
+                                        fourthDigit != secondDigit &&
                                         fourthDigit != thirdDigit)
                                     {
                                         string number = firstDigit + "" + secondDigit + "" + thirdDigit + "" +
